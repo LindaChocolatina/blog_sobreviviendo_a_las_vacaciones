@@ -127,4 +127,73 @@ td img {
 .franja-volver a:hover {
     text-decoration: underline;
 }
+.contenido-index {
+    background-color: #E6D8C1;
+    padding: 60px 20px;
+}
 
+.franja-footer {
+    background-color: #7F8F6A;
+    padding: 30px;
+    text-align: center;
+}
+
+.franja-footer a {
+    color: #E6D8C1;
+    margin: 0 15px;
+    text-decoration: none;
+    font-family: 'Mulish', sans-serif;
+}
+
+.franja-footer a:hover {
+    text-decoration: underline;
+}
+.comentarios {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: left; /* 👈 clave */
+}
+.form-comentarios {
+    display: flex;
+    flex-direction: column; /* 👈 los pone en columna */
+    gap: 12px;
+    margin-top: 20px;
+}
+.form-comentarios input,
+.form-comentarios textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #C7B8A0;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    background-color: #F8F3EA;
+}
+.form-comentarios button {
+    align-self: flex-start; 
+    background-color: #7F8F6A;
+    color: #E6D8C1;
+    border: none;
+    border-radius: 18px;
+    padding: 8px 18px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.form-comentarios button:hover {
+    opacity: 0.9;
+}
+.comentario {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-top: 15px;
+}
+
+.comentario strong {
+    color: #7F8F6A;
+}
+
+.comentario p {
+    margin: 5px 0 0;
+}
