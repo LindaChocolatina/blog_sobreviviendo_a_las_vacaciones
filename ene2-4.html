@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Enero 2 al 4</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="franja-titulo">
+    <h1 class="titulo-entrada">
+        Visita inesperada
+    </h1>
+    </header>
+    <main class="entrada">
+
+    <div class="texto-entrada">
+
+    <img class="imagen-principal" src="img/ene2-4.jpeg" alt="Caminata por el campo con las 4 perritas">
+
+    <div class="texto-entrada">
+        
+        <p>
+            
+        </p> 
+            
+        <p>
+            
+        </p>
+
+        <p>
+           
+        </p>
+
+        <p>
+            
+        </p>
+           </div>
+</main>
+<section class="comentarios">
+
+    <h3>Deja tu comentario</h3>
+
+    <form id="form-comentarios" class="form-comentarios">
+        <input type="text" id="nombre" placeholder="Tu nombre" required>
+        <textarea id="comentario" placeholder="Escribe tu comentario..." required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div id="lista-comentarios"></div>
+
+</section>
+
+ <footer class="franja-volver">
+    <a href="index.html">← Volver al calendario</a>
+</footer>
+
+<script>
+const form = document.getElementById("form-comentarios");
+const lista = document.getElementById("lista-comentarios");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value;
+    const comentario = document.getElementById("comentario").value;
+
+    const nuevoComentario = document.createElement("div");
+    nuevoComentario.classList.add("comentario");
+
+    nuevoComentario.innerHTML = `
+        <strong>${nombre}</strong>
+        <p>${comentario}</p>
+    `;
+
+    lista.appendChild(nuevoComentario);
+
+    form.reset();
+});
+</script>
+
+</body>
+</html>
