@@ -213,3 +213,33 @@ td img {
 .comentarios * {
     text-align: left;
 }
+.carrusel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.contenedor-calendarios {
+    width: 100%;
+    max-width: 900px;
+    overflow: hidden;
+}
+
+.calendario-item {
+    display: none;
+}
+
+.calendario-item.activo {
+    display: block;
+}
+
+button {
+    background-color: #7F8F6A;
+    color: #E6D8C1;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
