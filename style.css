@@ -193,7 +193,23 @@ td img {
 .comentario strong {
     color: #7F8F6A;
 }
-
 .comentario p {
     margin: 5px 0 0;
+}
+.comentarios h3 {
+    font-family: 'Gamja Flower', cursive;
+    margin-bottom: 10px;
+}
+.form-comentarios input,
+.form-comentarios textarea,
+.form-comentarios button {
+    display: block; /* 👈 ESTO es lo que te falta */
+}
+.form-comentarios {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* 👈 importante */
+}
+.comentarios * {
+    text-align: left;
 }
