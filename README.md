@@ -13,5 +13,6 @@ El proyecto combina narrativa, ilustración y experiencias personales, especialm
 - Cloud Firestore 
 
 🎯 Objetivo
+
 Explorar la creación de experiencias digitales que integren narrativa, emoción y funcionalidad.
         
