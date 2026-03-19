@@ -57,28 +57,79 @@
     <a href="index.html">← Volver al calendario</a>
 </footer>
 
-<script>
-const form = document.getElementById("form-comentarios");
-const lista = document.getElementById("lista-comentarios");
+<script type="module">
+  // 1. Importamos las herramientas necesarias de Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-form.addEventListener("submit", function(e) {
-    e.preventDefault();
+  // 2. PEGA AQUÍ TU CONFIGURACIÓN REAL DE FIREBASE
+  const firebaseConfig = {
+  apiKey: "AIzaSyBErDAQ7fJx_DlcwL2NSSe-n1DpbuDkT_w",
+  authDomain: "sobreviviendo-a-las-vacaciones.firebaseapp.com",
+  projectId: "sobreviviendo-a-las-vacaciones",
+  storageBucket: "sobreviviendo-a-las-vacaciones.firebasestorage.app",
+  messagingSenderId: "609045590762",
+  appId: "1:609045590762:web:8581a0e872e9285afd5d93",
+  measurementId: "G-RYS6YX8E34"
+};
 
-    const nombre = document.getElementById("nombre").value;
-    const comentario = document.getElementById("comentario").value;
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    const nuevoComentario = document.createElement("div");
-    nuevoComentario.classList.add("comentario");
+  // Referencias a tus elementos HTML
+  const form = document.getElementById("form-comentarios");
+  const lista = document.getElementById("lista-comentarios");
 
-    nuevoComentario.innerHTML = `
-        <strong>${nombre}</strong>
-        <p>${comentario}</p>
-    `;
+  // --- FUNCIÓN PARA LEER COMENTARIOS ---
+  async function cargarComentarios() {
+    // Traemos los comentarios ordenados por fecha (los más nuevos primero)
+    const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    lista.innerHTML = ""; // Limpiamos la lista visual
 
-    lista.appendChild(nuevoComentario);
+    querySnapshot.forEach((doc) => {
+      const datos = doc.data();
+      const div = document.createElement("div");
+      div.classList.add("comentario");
+      div.innerHTML = `
+        <strong>${datos.usuario}</strong>
+        <p>${datos.texto}</p>
+        <small>${datos.fecha ? datos.fecha.toDate().toLocaleString() : ""}</small>
+        <hr>
+      `;
+      lista.appendChild(div);
+    });
+  }
 
-    form.reset();
-});
+  // Cargar comentarios apenas abra la página
+  cargarComentarios();
+
+  // --- FUNCIÓN PARA GUARDAR UN COMENTARIO ---
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Evita que la página se recargue sola
+
+    const nombreInput = document.getElementById("nombre").value;
+    const comentarioInput = document.getElementById("comentario").value;
+
+    try {
+      // Enviamos los datos a la colección "comentarios" en Firestore
+      await addDoc(collection(db, "comentarios"), {
+        usuario: nombreInput,
+        texto: comentarioInput,
+        fecha: serverTimestamp() // Guarda la hora del servidor
+      });
+
+      form.reset(); // Limpia el formulario
+      alert("¡Comentario publicado con éxito!");
+      cargarComentarios(); // Actualiza la lista para mostrar el nuevo
+    } catch (error) {
+      console.error("Error al enviar:", error);
+      alert("Hubo un error al guardar tu comentario.");
+    }
+  });
 </script>
 
 </body>
