@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diciembre 22</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="franja-titulo">
+    <h1 class="titulo-entrada">
+        Titulo de la entrada
+    </h1>
+    </header>
+    <main class="entrada">
+
+    <div class="texto-entrada">
+
+    <img class="imagen-principal" src="img/diatal.png" alt="descripción de la imagen">
+
+    <div class="texto-entrada">
+        
+        <p>
+            
+        </p> 
+            
+        <p>
+            
+        </p>
+
+        <p>
+           
+        </p>
+
+        <p>
+            
+        </p>
+           </div>
+</main>
+<section class="comentarios">
+
+    <h3>Deja tu comentario</h3>
+
+    <form id="form-comentarios" class="form-comentarios">
+        <input type="text" id="nombre" placeholder="Tu nombre" required>
+        <textarea id="comentario" placeholder="Escribe tu comentario..." required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div id="lista-comentarios"></div>
+
+</section>
+
+ <footer class="franja-volver">
+    <a href="index.html">← Volver al calendario</a>
+</footer>
+
+<script type="module">
+  // 1. Importamos las herramientas necesarias de Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. PEGA AQUÍ TU CONFIGURACIÓN REAL DE FIREBASE
+  const firebaseConfig = {
+  apiKey: "AIzaSyBErDAQ7fJx_DlcwL2NSSe-n1DpbuDkT_w",
+  authDomain: "sobreviviendo-a-las-vacaciones.firebaseapp.com",
+  projectId: "sobreviviendo-a-las-vacaciones",
+  storageBucket: "sobreviviendo-a-las-vacaciones.firebasestorage.app",
+  messagingSenderId: "609045590762",
+  appId: "1:609045590762:web:8581a0e872e9285afd5d93",
+  measurementId: "G-RYS6YX8E34"
+};
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Referencias a tus elementos HTML
+  const form = document.getElementById("form-comentarios");
+  const lista = document.getElementById("lista-comentarios");
+
+  // --- FUNCIÓN PARA LEER COMENTARIOS ---
+  async function cargarComentarios() {
+    // Traemos los comentarios ordenados por fecha (los más nuevos primero)
+    const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    lista.innerHTML = ""; // Limpiamos la lista visual
+
+    querySnapshot.forEach((doc) => {
+      const datos = doc.data();
+      const div = document.createElement("div");
+      div.classList.add("comentario");
+      div.innerHTML = `
+        <strong>${datos.usuario}</strong>
+        <p>${datos.texto}</p>
+        <small>${datos.fecha ? datos.fecha.toDate().toLocaleString() : ""}</small>
+        <hr>
+      `;
+      lista.appendChild(div);
+    });
+  }
+
+  // Cargar comentarios apenas abra la página
+  cargarComentarios();
+
+  // --- FUNCIÓN PARA GUARDAR UN COMENTARIO ---
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Evita que la página se recargue sola
+
+    const nombreInput = document.getElementById("nombre").value;
+    const comentarioInput = document.getElementById("comentario").value;
+
+    try {
+      // Enviamos los datos a la colección "comentarios" en Firestore
+      await addDoc(collection(db, "comentarios"), {
+        usuario: nombreInput,
+        texto: comentarioInput,
+        fecha: serverTimestamp() // Guarda la hora del servidor
+      });
+
+      form.reset(); // Limpia el formulario
+      alert("¡Comentario publicado con éxito!");
+      cargarComentarios(); // Actualiza la lista para mostrar el nuevo
+    } catch (error) {
+      console.error("Error al enviar:", error);
+      alert("Hubo un error al guardar tu comentario.");
+    }
+  });
+</script>
+
+</body>
+</html>
