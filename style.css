@@ -250,3 +250,24 @@ button {
     display: block;
     margin-top: 20px;
 }
+.sobre-mi {
+    max-width: 800px;
+    margin: auto;
+    text-align: left;
+    line-height: 1.6;
+}
+.foto-perfil {
+    width: 360px;   /* antes 180px */
+    height: 360px;
+    border-radius: 50%;
+    float: right;
+    margin: 0 0 15px 25px;
+    object-fit: cover;
+}
+.foto-perfil {
+    margin: 0 0 20px 30px;
+}
+.texto-entrada p {
+    text-align: justify;
+    
+}
