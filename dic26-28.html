@@ -58,12 +58,11 @@
 </footer>
 
 <script type="module">
-  // 1. Importamos las herramientas necesarias de Firebase
+  
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } 
-    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  // 2. PEGA AQUÍ TU CONFIGURACIÓN REAL DE FIREBASE
+    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; 
+  
   const firebaseConfig = {
   apiKey: "AIzaSyBErDAQ7fJx_DlcwL2NSSe-n1DpbuDkT_w",
   authDomain: "sobreviviendo-a-las-vacaciones.firebaseapp.com",
@@ -74,62 +73,65 @@
   measurementId: "G-RYS6YX8E34"
 };
 
-  // Inicializar Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Referencias a tus elementos HTML
+  const postId = "dic26-28-bonnie-odisea-al-borde-de-la-muerte"; 
+
   const form = document.getElementById("form-comentarios");
   const lista = document.getElementById("lista-comentarios");
 
-  // --- FUNCIÓN PARA LEER COMENTARIOS ---
   async function cargarComentarios() {
-    // Traemos los comentarios ordenados por fecha (los más nuevos primero)
-    const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+    const q = query(collection(db, "posts", postId, "comentarios"), orderBy("fecha", "desc"));
     const querySnapshot = await getDocs(q);
     
-    lista.innerHTML = ""; // Limpiamos la lista visual
+    lista.innerHTML = ""; 
 
-    querySnapshot.forEach((doc) => {
-      const datos = doc.data();
-      const div = document.createElement("div");
-      div.classList.add("comentario");
-      div.innerHTML = `
-        <strong>${datos.usuario}</strong>
-        <p>${datos.texto}</p>
-        <small>${datos.fecha ? datos.fecha.toDate().toLocaleString() : ""}</small>
-        <hr>
-      `;
-      lista.appendChild(div);
-    });
+    if (querySnapshot.empty) { 
+        const noCommentsDiv = document.createElement("div");
+        noCommentsDiv.textContent = "Aún no hay comentarios. ¡Sé el primero en comentar!";
+        lista.appendChild(noCommentsDiv);
+    } else {
+        querySnapshot.forEach((doc) => {
+            const datos = doc.data();
+            const div = document.createElement("div");
+            div.classList.add("comentario");
+            div.innerHTML = `
+                <strong>${datos.usuario}</strong>
+                <p>${datos.texto}</p>
+                <small>${datos.fecha ? datos.fecha.toDate().toLocaleString() : ""}</small>
+                <hr>
+            `;
+            lista.appendChild(div);
+        });
+    }
   }
 
-  // Cargar comentarios apenas abra la página
   cargarComentarios();
 
-  // --- FUNCIÓN PARA GUARDAR UN COMENTARIO ---
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Evita que la página se recargue sola
+  if (form) { 
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); 
 
-    const nombreInput = document.getElementById("nombre").value;
-    const comentarioInput = document.getElementById("comentario").value;
+        const nombreInput = document.getElementById("nombre").value;
+        const comentarioInput = document.getElementById("comentario").value;
 
-    try {
-      // Enviamos los datos a la colección "comentarios" en Firestore
-      await addDoc(collection(db, "comentarios"), {
-        usuario: nombreInput,
-        texto: comentarioInput,
-        fecha: serverTimestamp() // Guarda la hora del servidor
+        try {
+          await addDoc(collection(db, "posts", postId, "comentarios"), {
+            usuario: nombreInput,
+            texto: comentarioInput,
+            fecha: serverTimestamp() 
+          });
+
+          form.reset(); 
+          alert("¡Comentario publicado con éxito!");
+          cargarComentarios(); 
+        } catch (error) {
+          console.error("Error al enviar:", error);
+          alert("Hubo un error al guardar tu comentario.");
+        }
       });
-
-      form.reset(); // Limpia el formulario
-      alert("¡Comentario publicado con éxito!");
-      cargarComentarios(); // Actualiza la lista para mostrar el nuevo
-    } catch (error) {
-      console.error("Error al enviar:", error);
-      alert("Hubo un error al guardar tu comentario.");
-    }
-  });
+  }
 </script>
 
 </body>

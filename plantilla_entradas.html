@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Diciembre 22</title>
+    <title>Diciembre 15</title>
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Mulish:wght@400;500&display=swap" rel="stylesheet">
@@ -11,31 +11,47 @@
 <body>
     <header class="franja-titulo">
     <h1 class="titulo-entrada">
-        Titulo de la entrada
+        Un mes viviendo en el campo y una sorpresa nocturna en la entrada de la casa
     </h1>
     </header>
     <main class="entrada">
 
     <div class="texto-entrada">
 
-    <img class="imagen-principal" src="img/diatal.png" alt="descripción de la imagen">
+    <img class="imagen-principal" src="img/dic15.jpeg" alt="La cachorra llegada de noche">
 
     <div class="texto-entrada">
         
         <p>
-            
+            Tras un mes de mudarnos a la casita rural y comenzar a desempacar, reparar y organizar 
+            todo por acá, una noche, aparentemente cualquiera, llegó una sorpresa nocturna a nuestras vidas.
+            Todo fue muy enigmático, Michael ya había comentado y lamentado que Marcy la cachorra no tuviera 
+            un compañero de juegos puesto que Juanita y Lalita no mostraban interés en jugar con ella. A Marcy 
+            siempre se le veía triste y ansiosa por jugar con alguien.
         </p> 
             
         <p>
-            
+            La cuestión es que aquella noche estabamos resguardados en casa viendo una película cuando de repente 
+            empecé a escuchar que un cachorro lloraba, gritaba ayuda desesperadamente, pero pensé que era uno 
+            de los perritos vecinos. Cuando salí con Lalita para que hiciera chichí me encontré con la escena 
+            de una cachorrita chirosa, sucia y despeinada al otro lado de la reja de entrada arañando y mordiendo 
+            la malla en un intento de atravesarla, clamando poder entrar.
         </p>
 
         <p>
-           
+            Llamé rápido a Michael para que confirmara lo que veían mis ojos y pasmados y sin entender cómo llegó 
+            a nuestra casa no sabíamos qué hacer, nos quedamos congelados hasta que Marcy despertó y salió a revisar 
+            qué estaba pasando. Cuando ella vio a la otra cachorra a través de la reja de inmediato salió corriendo 
+            a saludarla y darle besitos de bienvenida. Fue amor a primera vista, lo juro. De inmediato se hicieron 
+            mejores amigas para siempre.
         </p>
 
         <p>
-            
+            Al final la dejamos entrar, afuera todo estaba oscuro, frío y desolado. La cachorra olía a mil demonios, 
+            pero eso no fue impedimento para ingresar a nuestro hogar, con un baño aromático y cálido después de 
+            jugar sin parar con Marcy le adecuamos una caja con una cobijita suave para hacerle la cama y aunque 
+            cada una de las cachorras tenía su espacio terminaron durmiendo juntas y abrazadas. Siempre digo que 
+            fue una perrita que se "autoadoptó", no sé si fue coincidencia o destino, lo cierto es que llegó como caída del cielo
         </p>
            </div>
 </main>
@@ -61,7 +77,8 @@
   // 1. Importamos las herramientas necesarias de Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } 
-    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; 
+    // Ya no necesitas 'doc', 'getDoc', 'setDoc', 'deleteDoc' para el funcionamiento normal del blog.
 
   // 2. PEGA AQUÍ TU CONFIGURACIÓN REAL DE FIREBASE
   const firebaseConfig = {
@@ -78,58 +95,67 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // --- PASO CLAVE: DEFINIR EL ID DE ESTE POST ---
+  const postId = "dic15-un-mes-en-el-campo"; 
+
   // Referencias a tus elementos HTML
   const form = document.getElementById("form-comentarios");
   const lista = document.getElementById("lista-comentarios");
 
-  // --- FUNCIÓN PARA LEER COMENTARIOS ---
+  // --- FUNCIÓN PARA LEER COMENTARIOS (ACTUALIZADA) ---
   async function cargarComentarios() {
-    // Traemos los comentarios ordenados por fecha (los más nuevos primero)
-    const q = query(collection(db, "comentarios"), orderBy("fecha", "desc"));
+    const q = query(collection(db, "posts", postId, "comentarios"), orderBy("fecha", "desc"));
     const querySnapshot = await getDocs(q);
     
     lista.innerHTML = ""; // Limpiamos la lista visual
 
-    querySnapshot.forEach((doc) => {
-      const datos = doc.data();
-      const div = document.createElement("div");
-      div.classList.add("comentario");
-      div.innerHTML = `
-        <strong>${datos.usuario}</strong>
-        <p>${datos.texto}</p>
-        <small>${datos.fecha ? datos.fecha.toDate().toLocaleString() : ""}</small>
-        <hr>
-      `;
-      lista.appendChild(div);
-    });
+    if (querySnapshot.empty) { // Agregamos una verificación si no hay comentarios
+        const noCommentsDiv = document.createElement("div");
+        noCommentsDiv.textContent = "Aún no hay comentarios. ¡Sé el primero en comentar!";
+        lista.appendChild(noCommentsDiv);
+    } else {
+        querySnapshot.forEach((doc) => {
+            const datos = doc.data();
+            const div = document.createElement("div");
+            div.classList.add("comentario");
+            div.innerHTML = `
+                <strong>${datos.usuario}</strong>
+                <p>${datos.texto}</p>
+                <small>${datos.fecha ? datos.fecha.toDate().toLocaleString() : ""}</small>
+                <hr>
+            `;
+            lista.appendChild(div);
+        });
+    }
   }
 
   // Cargar comentarios apenas abra la página
   cargarComentarios();
 
-  // --- FUNCIÓN PARA GUARDAR UN COMENTARIO ---
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Evita que la página se recargue sola
+  // --- FUNCIÓN PARA GUARDAR UN COMENTARIO (ACTUALIZADA) ---
+  if (form) { // Asegurarse de que el formulario existe antes de añadir el listener
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Evita que la página se recargue sola
 
-    const nombreInput = document.getElementById("nombre").value;
-    const comentarioInput = document.getElementById("comentario").value;
+        const nombreInput = document.getElementById("nombre").value;
+        const comentarioInput = document.getElementById("comentario").value;
 
-    try {
-      // Enviamos los datos a la colección "comentarios" en Firestore
-      await addDoc(collection(db, "comentarios"), {
-        usuario: nombreInput,
-        texto: comentarioInput,
-        fecha: serverTimestamp() // Guarda la hora del servidor
+        try {
+          await addDoc(collection(db, "posts", postId, "comentarios"), {
+            usuario: nombreInput,
+            texto: comentarioInput,
+            fecha: serverTimestamp() // Guarda la hora del servidor
+          });
+
+          form.reset(); // Limpia el formulario
+          alert("¡Comentario publicado con éxito!");
+          cargarComentarios(); // Actualiza la lista para mostrar el nuevo
+        } catch (error) {
+          console.error("Error al enviar:", error);
+          alert("Hubo un error al guardar tu comentario.");
+        }
       });
-
-      form.reset(); // Limpia el formulario
-      alert("¡Comentario publicado con éxito!");
-      cargarComentarios(); // Actualiza la lista para mostrar el nuevo
-    } catch (error) {
-      console.error("Error al enviar:", error);
-      alert("Hubo un error al guardar tu comentario.");
-    }
-  });
+  }
 </script>
 
 </body>
