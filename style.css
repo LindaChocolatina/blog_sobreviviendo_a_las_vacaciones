@@ -18,8 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center; /* 👈 centra verticalmente */
-}
-.contenido-index {
+
     padding: 20px 20px; /* antes 60px */
 }
 h1 {
@@ -340,21 +339,21 @@ td img {
     opacity: 1;
     visibility: visible;
     z-index: 10;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(0.75);
 }
 
 .calendario-item.izquierda {
     opacity: 0.4;
     visibility: visible;
     z-index: 5;
-    transform: translate(-110%, -50%) scale(0.75);
+    transform: translate(-110%, -50%) scale(0.50);
 }
 
 .calendario-item.derecha {
     opacity: 0.4;
     visibility: visible;
     z-index: 5;
-    transform: translate(10%, -50%) scale(0.75);
+    transform: translate(10%, -50%) scale(0.50);
 }
 
 button {
