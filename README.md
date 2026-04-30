@@ -7,6 +7,7 @@ Un espacio digital donde la narrativa cotidiana y la exploración técnica se en
 El proyecto combina narrativa, ilustración y experiencias personales, especialmente desde la perspectiva de la vida cotidiana como mamá perruna y la exploración del tiempo libre, la creatividad y la rutina.
 
 ## ✨ Tecnologías
+
 **Interfaz:** HTML5 & CSS3.
 **Interactividad:** JavaScript (Lógica de carrusel y gestión de datos).
 **Persistencia:** Cloud Firestore (NoSQL).
