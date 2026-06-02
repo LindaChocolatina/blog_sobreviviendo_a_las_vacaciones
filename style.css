@@ -42,6 +42,16 @@ table {
     border-collapse: separate;
     border-spacing: 8px;
 }
+.calendario td {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #3D2B1F;
+    border-radius: 16px;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    background-color: #E6D8C1;
+}
 td {
     width: 120px;
     height: 120px;
@@ -53,6 +63,16 @@ td {
     background-color: #E6D8C1;
 }
 
+.calendario th {
+    font-family: 'Mulish', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 5px;
+    color: #3D2B1F;
+    border-bottom: 2px solid #3D2B1F;
+    white-space: nowrap;
+    width: 120px;
+}
 th {
     font-family: 'Mulish', sans-serif;
     font-size: 18px; /* Un poco más grande para que se lea bien */
@@ -63,6 +83,15 @@ th {
     white-space: nowrap; /* 👈 EVITA que se ponga "Lu-ne-s" */
     width: 120px; /* Forzamos que la columna sea ancha */
 }
+.dia-corto {
+    display: none;
+}
+.dia-largo {
+    display: inline;
+}
+.calendario-item h2.mes {
+    letter-spacing: 0.28em;
+}
 .day-number {
     position: absolute;
     top: 6px;
@@ -70,26 +99,92 @@ th {
     font-size: 14px;
     font-weight: bold;
     color: #3D2B1F;
-    background-color: rgba(230, 216, 193, 0.85); 
-    padding: 2px 6px;
-    border-radius: 6px;
+    padding: 0;
     z-index: 2;
+    pointer-events: none;
 }
-td a {
+td a.entrada-dia {
     display: block;
-    width: 100%;
-    height: 100%;
-    position:absolute;
-    top: 0;
-    left: 0;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: inherit;
 }
-td img {
+
+td a.entrada-dia img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
+    max-width: none;
     object-fit: cover;
-    position: relative;
+    object-position: center;
     padding: 0;
     display: block;
+    transition: transform 0.25s ease;
+}
+.calendario td:empty {
+    border-color: rgba(61, 43, 31, 0.35);
+}
+
+.calendario td:not(:has(a)) .day-number {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.calendario td:has(a) {
+    cursor: pointer;
+    border-color: #7F8F6A;
+    box-shadow: inset 0 0 0 1px rgba(127, 143, 106, 0.25);
+}
+
+.calendario td:has(a) .day-number {
+    top: 4px;
+    left: 5px;
+    right: auto;
+    font-size: 11px;
+    font-weight: bold;
+    color: #3D2B1F;
+    background-color: rgba(230, 216, 193, 0.92);
+    box-shadow: 0 1px 3px rgba(61, 43, 31, 0.15);
+    padding: 1px 4px;
+    border-radius: 4px;
+    line-height: 1.1;
+}
+
+.calendario td:has(a):hover {
+    box-shadow: 0 2px 10px rgba(61, 43, 31, 0.16);
+}
+
+.calendario td:has(a):hover img {
+    transform: scale(1.04);
+}
+
+.calendario td:has(a) a:focus-visible {
+    outline: 2px solid #7F8F6A;
+    outline-offset: -2px;
+}
+
+.calendario td:has(a:not(:has(img))) {
+    background-color: #d4c4a8;
+}
+
+.calendario td:has(a:not(:has(img))) a::after {
+    content: "Leer";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #3D2B1F;
+    background-color: rgba(230, 216, 193, 0.9);
+    padding: 3px 8px;
+    border-radius: 6px;
+    z-index: 2;
 }
 
 .entrada {
@@ -304,6 +399,13 @@ td img {
     transform: scale(1.2);
     transition: 0.2s;
 }
+.flecha:active {
+    transform: scale(0.95);
+}
+.flecha:focus-visible {
+    outline: 2px solid #3D2B1F;
+    outline-offset: 3px;
+}
 /* --- SECCIÓN CARRUSEL --- */
 .carrusel {
     display: flex;
@@ -423,4 +525,425 @@ section.comentarios .form-comentarios button[type="submit"] {
     border-radius: 22px;
     border: none;
     text-align: center;
+}
+
+/* --- Responsive: entradas del blog --- */
+@media (max-width: 900px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .franja-titulo {
+        padding: clamp(28px, 8vw, 40px) 16px;
+    }
+
+    .titulo-entrada {
+        font-size: clamp(22px, 6.2vw, 36px);
+        line-height: 1.25;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .entrada {
+        margin-top: clamp(24px, 6vw, 40px);
+        padding: 0 16px;
+    }
+
+    .imagen-principal {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        border-radius: 14px;
+        margin-bottom: 28px;
+    }
+
+    .texto-entrada {
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+    .texto-entrada p {
+        text-align: left;
+        margin-bottom: 18px;
+    }
+
+    .comentarios {
+        padding: 28px 0 32px;
+    }
+
+    .comentarios h3 {
+        font-size: clamp(1.45rem, 5.5vw, 2rem);
+        margin: 8px 0 10px;
+    }
+
+    .form-comentarios {
+        margin-top: 16px;
+        gap: 10px;
+    }
+
+    .form-comentarios input,
+    .form-comentarios textarea {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .form-comentarios textarea {
+        min-height: 120px;
+    }
+
+    .form-comentarios button {
+        font-size: 16px;
+        padding: 12px 24px;
+        min-height: 48px;
+    }
+
+    .comentario {
+        padding: 12px;
+    }
+
+    .franja-volver {
+        padding: 22px 16px;
+    }
+
+    .franja-volver a {
+        font-size: 15px;
+    }
+
+    .foto-perfil {
+        float: none;
+        display: block;
+        width: min(260px, 72vw);
+        height: auto;
+        aspect-ratio: 1;
+        margin: 0 auto 20px;
+    }
+}
+
+@media (max-width: 380px) {
+    .franja-titulo {
+        padding: 24px 12px;
+    }
+
+    .entrada {
+        padding: 0 12px;
+    }
+
+    .titulo-entrada {
+        font-size: clamp(20px, 7vw, 26px);
+    }
+
+    .imagen-principal {
+        border-radius: 12px;
+        margin-bottom: 22px;
+    }
+
+    .comentarios h3 {
+        font-size: 1.35rem;
+    }
+}
+
+/* --- Responsive: agenda de bolsillo --- */
+@media (max-width: 900px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: clamp(26px, 7vw, 60px);
+        margin-top: 16px;
+        padding: 0 12px;
+        line-height: 1.15;
+    }
+
+    .carrusel {
+        min-height: auto;
+        padding: 8px 6px 16px;
+        gap: 4px;
+        box-sizing: border-box;
+    }
+
+    .contenedor-calendarios {
+        width: min(calc(100vw - 88px), 420px);
+        aspect-ratio: 7 / 8.2;
+        height: auto;
+        min-height: 0;
+        flex: 1;
+    }
+
+    .calendario-item {
+        padding: 10px 8px 12px;
+        border-radius: 14px;
+        box-sizing: border-box;
+        transition: none;
+    }
+
+    .calendario-item h2.mes {
+        letter-spacing: 0.12em;
+        font-size: clamp(1.25rem, 5.5vw, 1.75rem);
+        margin-bottom: 8px;
+    }
+
+    .calendario-item.activo {
+        transform: translate(-50%, -50%) scale(1);
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .calendario-item.izquierda,
+    .calendario-item.derecha {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .calendario {
+        width: 100%;
+        table-layout: fixed;
+        margin-bottom: 0;
+        border-spacing: clamp(2px, 0.8vw, 4px);
+    }
+
+    .calendario th,
+    .calendario td {
+        width: auto;
+    }
+
+    .calendario th {
+        font-size: clamp(11px, 3.2vw, 14px);
+        font-weight: 700;
+        padding: 6px 0 8px;
+        border-bottom-width: 1.5px;
+        white-space: normal;
+    }
+
+    .dia-largo {
+        display: none;
+    }
+
+    .dia-corto {
+        display: inline;
+        font-size: clamp(12px, 3.5vw, 15px);
+        letter-spacing: 0;
+    }
+
+    .calendario td {
+        height: auto;
+        border-radius: clamp(6px, 2vw, 10px);
+        border-width: 1.5px;
+        vertical-align: top;
+    }
+
+    /* Misma altura en casillas simples y en colspan (ancho ÷ columnas) */
+    .calendario td::before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+
+    .calendario td[colspan="2"]::before {
+        padding-top: 50%;
+    }
+
+    .calendario td[colspan="3"]::before {
+        padding-top: 33.3333%;
+    }
+
+    .calendario .day-number {
+        top: 3px;
+        left: 4px;
+        font-size: clamp(9px, 2.6vw, 11px);
+        line-height: 1.2;
+    }
+
+    .flecha {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        touch-action: manipulation;
+    }
+
+    #prev::after,
+    #next::after {
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+    }
+
+    #prev::after {
+        border-right-width: 12px;
+    }
+
+    #next::after {
+        border-left-width: 12px;
+    }
+
+    .franja-footer {
+        padding: 24px 16px;
+    }
+
+    .franja-footer a {
+        display: inline-block;
+        margin: 6px 10px;
+    }
+}
+
+@media (max-width: 380px) {
+    .contenedor-calendarios {
+        width: calc(100vw - 84px);
+    }
+
+    .calendario-item {
+        padding: 8px 5px 10px;
+    }
+
+    .calendario {
+        border-spacing: 2px;
+    }
+
+    .calendario-item h2.mes {
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+    }
+
+    .flecha {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    /* Celdas: número centrado en días sin entrada */
+    .calendario td:not(:has(a)) .day-number {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+        font-size: clamp(11px, 3.4vw, 14px);
+        font-weight: 600;
+    }
+
+    .calendario td:has(a):active {
+        transform: scale(0.97);
+        transition: transform 0.12s ease;
+    }
+
+    .calendario td:has(a) .day-number {
+        top: 2px;
+        left: 3px;
+        right: auto;
+        transform: none;
+        font-size: clamp(7px, 2.2vw, 9px);
+        font-weight: bold;
+        color: #3D2B1F;
+        background-color: rgba(230, 216, 193, 0.92);
+        box-shadow: 0 1px 3px rgba(61, 43, 31, 0.15);
+        padding: 1px 3px;
+        border-radius: 3px;
+        line-height: 1.1;
+    }
+
+    .calendario td[colspan] .day-number {
+        font-size: clamp(6px, 1.9vw, 8px);
+        max-width: calc(100% - 6px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .calendario td:has(a:not(:has(img))) a::after {
+        bottom: 4px;
+        right: 4px;
+        font-size: clamp(8px, 2.2vw, 10px);
+        padding: 2px 5px;
+    }
+
+    .contenedor-calendarios {
+        touch-action: pan-y pinch-zoom;
+        cursor: grab;
+    }
+
+    .contenedor-calendarios:active {
+        cursor: grabbing;
+    }
+
+    /* Animación al cambiar de mes */
+    @keyframes deslizar-entrada-desde-der {
+        from {
+            transform: translate(calc(-50% + 28px), -50%) scale(0.98);
+            opacity: 0.35;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes deslizar-entrada-desde-izq {
+        from {
+            transform: translate(calc(-50% - 28px), -50%) scale(0.98);
+            opacity: 0.35;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes deslizar-salida-hacia-izq {
+        from {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        to {
+            transform: translate(calc(-50% - 28px), -50%) scale(0.98);
+            opacity: 0;
+        }
+    }
+
+    @keyframes deslizar-salida-hacia-der {
+        from {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        to {
+            transform: translate(calc(-50% + 28px), -50%) scale(0.98);
+            opacity: 0;
+        }
+    }
+
+    .calendario-item.activo.anim-der {
+        animation: deslizar-entrada-desde-der 0.36s cubic-bezier(0.25, 0.8, 0.35, 1) forwards;
+    }
+
+    .calendario-item.activo.anim-izq {
+        animation: deslizar-entrada-desde-izq 0.36s cubic-bezier(0.25, 0.8, 0.35, 1) forwards;
+    }
+
+    .calendario-item.anim-der:not(.activo) {
+        animation: deslizar-salida-hacia-der 0.36s cubic-bezier(0.25, 0.8, 0.35, 1) forwards;
+        visibility: visible;
+        z-index: 8;
+    }
+
+    .calendario-item.anim-izq:not(.activo) {
+        animation: deslizar-salida-hacia-izq 0.36s cubic-bezier(0.25, 0.8, 0.35, 1) forwards;
+        visibility: visible;
+        z-index: 8;
+    }
+}
+
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+    .calendario-item.activo.anim-der,
+    .calendario-item.activo.anim-izq,
+    .calendario-item.anim-der:not(.activo),
+    .calendario-item.anim-izq:not(.activo) {
+        animation: none;
+    }
+
+    .calendario-item {
+        transition: opacity 0.2s ease;
+    }
 }
