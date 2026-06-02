@@ -7,29 +7,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Loved+by+the+King&family=Mulish:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
     <h1>Sobreviviendo a las vacaciones</h1>
 
    <div class="carrusel">
 
-    <button id="prev" class="flecha izquierda"></button>
+    <button id="prev" class="flecha izquierda" aria-label="Mes anterior"></button>
 
-    <div class="contenedor-calendarios">
+    <div class="contenedor-calendarios" role="region" aria-live="polite" aria-label="Calendario: Diciembre">
 
         <div class="calendario-item activo">
-            <h2 class="mes">D i c i e m b r e</h2>
+            <h2 class="mes">Diciembre</h2>
 
             <table class="calendario">
                 <tr>
-                    <th>L u n e s</th>
-                    <th>M a r t e s</th>
-                    <th>M i é r c o l e s</th>
-                    <th>J u e v e s</th>
-                    <th>V i e r n e s</th>
-                    <th>S á b a d o</th>
-                    <th>D o m i n g o</th>
+                    <th scope="col" aria-label="Lunes"><span class="dia-largo">L u n e s</span><span class="dia-corto">L</span></th>
+                    <th scope="col" aria-label="Martes"><span class="dia-largo">M a r t e s</span><span class="dia-corto">M</span></th>
+                    <th scope="col" aria-label="Miércoles"><span class="dia-largo">M i é r c o l e s</span><span class="dia-corto">X</span></th>
+                    <th scope="col" aria-label="Jueves"><span class="dia-largo">J u e v e s</span><span class="dia-corto">J</span></th>
+                    <th scope="col" aria-label="Viernes"><span class="dia-largo">V i e r n e s</span><span class="dia-corto">V</span></th>
+                    <th scope="col" aria-label="Sábado"><span class="dia-largo">S á b a d o</span><span class="dia-corto">S</span></th>
+                    <th scope="col" aria-label="Domingo"><span class="dia-largo">D o m i n g o</span><span class="dia-corto">D</span></th>
                 </tr>
 
                 <tr>
@@ -55,8 +55,8 @@
                 <tr>
                     <td>
                         <span class="day-number">15</span>
-                        <a href="dic15.html">
-                            <img src="img/dic15.jpeg">
+                        <a href="dic15.html" class="entrada-dia" aria-label="Leer entrada del 15 de diciembre">
+                            <img src="img/dic15.jpeg" alt="La cachorra llegada de noche">
                         </a>
                     </td>
                     <td><span class="day-number">16</span></td>
@@ -64,8 +64,8 @@
                     <td><span class="day-number">18</span></td>
                     <td>
                         <span class="day-number">19</span>
-                        <a href="dic19.html">
-                            <img src="img/dic19.jpeg">
+                        <a href="dic19.html" class="entrada-dia" aria-label="Leer entrada del 19 de diciembre">
+                            <img src="img/dic19.jpeg" alt="La primera tamalada en un cuenco">
                         </a>
                     </td>
                     <td><span class="day-number">20</span></td>
@@ -75,22 +75,22 @@
                 <tr>
                     <td>
                         <span class="day-number">22</span>
-                        <a href="dic22.html">
-                            <img src="img/dic22.png">
+                        <a href="dic22.html" class="entrada-dia" aria-label="Leer entrada del 22 de diciembre">
+                            <img src="img/dic22.png" alt="Perrita junto a comida y regalo de cumpleaños">
                         </a>
                     </td>
                     <td><span class="day-number">23</span></td>
                     <td><span class="day-number">24</span></td>
                     <td>
                         <span class="day-number">25</span>
-                        <a href="dic25.html">
-                            <img src="img/dic25.png">
+                        <a href="dic25.html" class="entrada-dia" aria-label="Leer entrada del 25 de diciembre">
+                            <img src="img/dic25.png" alt="Un estanque de agua con peces">
                         </a>
                     </td>
                     <td colspan="3">
                         <span class="day-number">26–28</span>
-                        <a href="dic26-28.html">
-                            <img src="img/dic26-28.jpeg">
+                        <a href="dic26-28.html" class="entrada-dia" aria-label="Leer entrada del 26 al 28 de diciembre">
+                            <img src="img/dic26-28.jpeg" alt="Cachorra enferma con una cobijita">
                         </a>
                     </td>
                 </tr>
@@ -100,8 +100,8 @@
                     <td><span class="day-number">30</span></td>
                     <td>
                         <span class="day-number">31</span>
-                        <a href="dic31.html">
-                            <img src="img/dic31.png">
+                        <a href="dic31.html" class="entrada-dia" aria-label="Leer entrada del 31 de diciembre">
+                            <img src="img/dic31.png" alt="Perrita posando en la cerca del jardín">
                         </a>
                     </td>
                     <td></td>
@@ -113,17 +113,17 @@
         </div>
 
         <div class="calendario-item">
-            <h2 class="mes">E n e r o</h2>
+            <h2 class="mes">Enero</h2>
 
             <table class="calendario">
                 <tr>
-                    <th>L u n e s</th>
-                    <th>M a r t e s</th>
-                    <th>M i é r c o l e s</th>
-                    <th>J u e v e s</th>
-                    <th>V i e r n e s</th>
-                    <th>S á b a d o</th>
-                    <th>D o m i n g o</th>
+                    <th scope="col" aria-label="Lunes"><span class="dia-largo">L u n e s</span><span class="dia-corto">L</span></th>
+                    <th scope="col" aria-label="Martes"><span class="dia-largo">M a r t e s</span><span class="dia-corto">M</span></th>
+                    <th scope="col" aria-label="Miércoles"><span class="dia-largo">M i é r c o l e s</span><span class="dia-corto">X</span></th>
+                    <th scope="col" aria-label="Jueves"><span class="dia-largo">J u e v e s</span><span class="dia-corto">J</span></th>
+                    <th scope="col" aria-label="Viernes"><span class="dia-largo">V i e r n e s</span><span class="dia-corto">V</span></th>
+                    <th scope="col" aria-label="Sábado"><span class="dia-largo">S á b a d o</span><span class="dia-corto">S</span></th>
+                    <th scope="col" aria-label="Domingo"><span class="dia-largo">D o m i n g o</span><span class="dia-corto">D</span></th>
                 </tr>
 
                 <tr>
@@ -133,8 +133,8 @@
                     <td><span class="day-number">1</span></td>
                     <td colspan="3">
                         <span class="day-number">2-4</span>
-                        <a href="ene2-4.html">
-                            <img src="img/ene2-4.jpeg">
+                        <a href="ene2-4.html" class="entrada-dia" aria-label="Leer entrada del 2 al 4 de enero">
+                            <img src="img/ene2-4.jpeg" alt="Caminata por el campo con las perritas">
                         </a>
                     </td>
                 </tr>
@@ -152,8 +152,8 @@
                 <tr>
                     <td colspan="3">
                         <span class="day-number">12-15</span>
-                        <a href="ene12-15.html">
-                            <img src="img/ene12-15.jpeg">
+                        <a href="ene12-15.html" class="entrada-dia" aria-label="Leer entrada del 12 al 15 de enero">
+                            <img src="img/ene12-15.jpeg" alt="Cachorras jugando en un jardín destruido">
                         </a>
                     </td>
                     <td><span class="day-number">16</span></td>
@@ -166,8 +166,8 @@
                     <td><span class="day-number">20</span></td>
                     <td colspan="3">
                         <span class="day-number">21-23</span>
-                        <a href="ene21-23.html">
-                            <img src="img/ene21-23.jpeg">
+                        <a href="ene21-23.html" class="entrada-dia" aria-label="Leer entrada del 21 al 23 de enero">
+                            <img src="img/ene21-23.jpeg" alt="Cachorra acostada en el regazo de su dueña">
                         </a>
                     </td>
                     <td><span class="day-number">24</span></td>
@@ -182,8 +182,8 @@
                     <td><span class="day-number">30</span></td>
                     <td>
                         <span class="day-number">31</span>
-                        <a href="ene31.html">
-                            <img src="img/ene31.jpeg">
+                        <a href="ene31.html" class="entrada-dia" aria-label="Leer entrada del 31 de enero">
+                            <img src="img/ene31.jpeg" alt="La autora diseñando y codificando su primera página web">
                         </a>
                     </td>
                     <td></td>
@@ -193,17 +193,17 @@
         </div>
 
         <div class="calendario-item">
-            <h2 class="mes">M a r z o</h2>
+            <h2 class="mes">Marzo</h2>
 
             <table class="calendario">
                 <tr>
-                    <th>L u n e s</th>
-                    <th>M a r t e s</th>
-                    <th>M i é r c o l e s</th>
-                    <th>J u e v e s</th>
-                    <th>V i e r n e s</th>
-                    <th>S á b a d o</th>
-                    <th>D o m i n g o</th>
+                    <th scope="col" aria-label="Lunes"><span class="dia-largo">L u n e s</span><span class="dia-corto">L</span></th>
+                    <th scope="col" aria-label="Martes"><span class="dia-largo">M a r t e s</span><span class="dia-corto">M</span></th>
+                    <th scope="col" aria-label="Miércoles"><span class="dia-largo">M i é r c o l e s</span><span class="dia-corto">X</span></th>
+                    <th scope="col" aria-label="Jueves"><span class="dia-largo">J u e v e s</span><span class="dia-corto">J</span></th>
+                    <th scope="col" aria-label="Viernes"><span class="dia-largo">V i e r n e s</span><span class="dia-corto">V</span></th>
+                    <th scope="col" aria-label="Sábado"><span class="dia-largo">S á b a d o</span><span class="dia-corto">S</span></th>
+                    <th scope="col" aria-label="Domingo"><span class="dia-largo">D o m i n g o</span><span class="dia-corto">D</span></th>
                 </tr>
 
                 <tr>
@@ -259,17 +259,17 @@
         </div>
 
         <div class="calendario-item">
-            <h2 class="mes">A b r i l</h2>
+            <h2 class="mes">Abril</h2>
 
             <table class="calendario">
                 <tr>
-                    <th>L u n e s</th>
-                    <th>M a r t e s</th>
-                    <th>M i é r c o l e s</th>
-                    <th>J u e v e s</th>
-                    <th>V i e r n e s</th>
-                    <th>S á b a d o</th>
-                    <th>D o m i n g o</th>
+                    <th scope="col" aria-label="Lunes"><span class="dia-largo">L u n e s</span><span class="dia-corto">L</span></th>
+                    <th scope="col" aria-label="Martes"><span class="dia-largo">M a r t e s</span><span class="dia-corto">M</span></th>
+                    <th scope="col" aria-label="Miércoles"><span class="dia-largo">M i é r c o l e s</span><span class="dia-corto">X</span></th>
+                    <th scope="col" aria-label="Jueves"><span class="dia-largo">J u e v e s</span><span class="dia-corto">J</span></th>
+                    <th scope="col" aria-label="Viernes"><span class="dia-largo">V i e r n e s</span><span class="dia-corto">V</span></th>
+                    <th scope="col" aria-label="Sábado"><span class="dia-largo">S á b a d o</span><span class="dia-corto">S</span></th>
+                    <th scope="col" aria-label="Domingo"><span class="dia-largo">D o m i n g o</span><span class="dia-corto">D</span></th>
                 </tr>
 
                 <tr>
@@ -279,14 +279,14 @@
                     <td><span class="day-number">1</span></td>
                     <td colspan="3">
                         <span class="day-number">2–4</span>
-                        <a href="abr2-5.html"></a>
+                        <a href="abr2-5.html" class="entrada-dia" aria-label="Leer entrada del 2 al 4 de abril"></a>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
                         <span class="day-number">5</span>
-                        <a href="abr2-5.html"></a>
+                        <a href="abr2-5.html" class="entrada-dia" aria-label="Leer entrada del 5 de abril"></a>
                     </td>
                     <td><span class="day-number">6</span></td>
                     <td><span class="day-number">7</span></td>
@@ -330,7 +330,7 @@
 
     </div>
 
-    <button id="next" class="flecha derecha"></button>
+    <button id="next" class="flecha derecha" aria-label="Mes siguiente"></button>
 
 </div>
 
@@ -343,16 +343,26 @@
 
 </footer>
 <script>
-    // Asegúrate de que en tu HTML los botones tengan id="prev" e id="next"
 const btnAnt = document.getElementById("prev");
 const btnSig = document.getElementById("next");
+const contenedor = document.querySelector(".contenedor-calendarios");
 const items = document.querySelectorAll(".calendario-item");
 let currentIndex = 0;
+let isAnimating = false;
+
+function esMovil() {
+    return window.matchMedia("(max-width: 900px)").matches;
+}
+
+function actualizarAccesibilidad() {
+    const mes = items[currentIndex].querySelector(".mes").textContent.trim();
+    contenedor.setAttribute("aria-label", `Calendario: ${mes}`);
+}
 
 function mostrarCalendario() {
     items.forEach((item, i) => {
-        item.classList.remove("activo", "izquierda", "derecha");
-        
+        item.classList.remove("activo", "izquierda", "derecha", "anim-der", "anim-izq");
+
         if (i === currentIndex) {
             item.classList.add("activo");
         } else if (i === (currentIndex - 1 + items.length) % items.length) {
@@ -361,22 +371,96 @@ function mostrarCalendario() {
             item.classList.add("derecha");
         }
     });
+    actualizarAccesibilidad();
 }
 
-// Eventos de clic
-btnSig.onclick = (e) => {
-    e.preventDefault(); // Evita cualquier comportamiento raro
-    currentIndex = (currentIndex + 1) % items.length;
-    mostrarCalendario();
-};
+function calcularDireccion(desde, hacia) {
+    const diff = hacia - desde;
+    if (diff === 0) return 0;
+    if (Math.abs(diff) <= items.length / 2) return diff > 0 ? 1 : -1;
+    return diff > 0 ? -1 : 1;
+}
 
-btnAnt.onclick = (e) => {
+function irAMes(nuevoIndex, direccion) {
+    if (isAnimating || nuevoIndex === currentIndex) return;
+
+    const dir = direccion ?? calcularDireccion(currentIndex, nuevoIndex);
+    const avanzar = dir > 0;
+
+    if (esMovil()) {
+        isAnimating = true;
+        const saliente = items[currentIndex];
+        const entrante = items[nuevoIndex];
+
+        items.forEach((item) => {
+            item.classList.remove("activo", "izquierda", "derecha", "anim-der", "anim-izq");
+        });
+
+        saliente.classList.add(avanzar ? "anim-izq" : "anim-der");
+        entrante.classList.add("activo", avanzar ? "anim-der" : "anim-izq");
+
+        currentIndex = nuevoIndex;
+        actualizarAccesibilidad();
+
+        setTimeout(() => {
+            mostrarCalendario();
+            isAnimating = false;
+        }, 360);
+    } else {
+        currentIndex = nuevoIndex;
+        mostrarCalendario();
+    }
+}
+
+function mesSiguiente() {
+    irAMes((currentIndex + 1) % items.length, 1);
+}
+
+function mesAnterior() {
+    irAMes((currentIndex - 1 + items.length) % items.length, -1);
+}
+
+btnSig.addEventListener("click", (e) => {
     e.preventDefault();
-    currentIndex = (currentIndex - 1 + items.length) % items.length;
-    mostrarCalendario();
-};
+    mesSiguiente();
+});
 
-// Inicializar
+btnAnt.addEventListener("click", (e) => {
+    e.preventDefault();
+    mesAnterior();
+});
+
+let touchStartX = 0;
+let touchStartY = 0;
+let suppressClick = false;
+
+contenedor.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+contenedor.addEventListener("touchend", (e) => {
+    if (!esMovil()) return;
+
+    const diffX = touchStartX - e.changedTouches[0].screenX;
+    const diffY = touchStartY - e.changedTouches[0].screenY;
+
+    if (Math.abs(diffX) < 50 || Math.abs(diffX) < Math.abs(diffY)) return;
+
+    suppressClick = true;
+    setTimeout(() => { suppressClick = false; }, 400);
+
+    if (diffX > 0) mesSiguiente();
+    else mesAnterior();
+}, { passive: true });
+
+contenedor.addEventListener("click", (e) => {
+    if (suppressClick && !e.target.closest("a.entrada-dia")) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}, true);
+
 mostrarCalendario();
 </script>
 </body>
